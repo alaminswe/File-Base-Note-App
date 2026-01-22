@@ -22,7 +22,8 @@ public class Main {
             System.out.println("2. View All Notes");
             System.out.println("3. Update Note");
             System.out.println("4. Delete Note");
-            System.out.println("5. Exit");
+            System.out.println("5. Reset (Delete All Notes)");
+            System.out.println("6. Exit");
             System.out.print("Choose an option: ");
 
             int choice = sc.nextInt();
@@ -33,7 +34,8 @@ public class Main {
                 case 2 -> viewNotes();
                 case 3 -> updateNote();
                 case 4 -> deleteNote();
-                case 5 -> {
+                case 5 -> resetNotes();
+                case 6 -> {
                     System.out.println("Thank you! Goodbye 👋");
                     sc.close();
                     return;
@@ -41,6 +43,17 @@ public class Main {
                 default -> System.out.println("Invalid choice! Try again.");
             }
         }
+    }
+    static void resetNotes() {
+        File folder = new File(NOTES_FOLDER);
+        File[] files = folder.listFiles();
+
+        if (files != null) {
+            for (File file : files) {
+                file.delete();
+            }
+        }
+        System.out.println("All notes deleted successfully!");
     }
     static void deleteNote() {
         System.out.println("Your notes are : ");
@@ -65,7 +78,6 @@ public class Main {
             }
         }
     }
-
     static void updateNote() {
         System.out.println("Your all notes (with the unique identifier): ");
         File folder = new File(NOTES_FOLDER);
@@ -117,7 +129,6 @@ public class Main {
             System.out.println("Error updating note!");
         }
     }
-
     static void viewNotes() {
         System.out.println("Your notes are : ");
         File folder = new File(NOTES_FOLDER);
@@ -140,7 +151,6 @@ public class Main {
             }
         }
     }
-    // Creating new notes
     static void createNote() {
         try {
             System.out.print("Enter your note: ");
